@@ -6,7 +6,6 @@ matplotlib
 branca
 openpyxl
 streamlit 
-sys
 datetime 
 folium.plugins 
 branca.colormap
