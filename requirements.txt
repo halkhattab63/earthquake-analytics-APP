@@ -7,3 +7,4 @@ branca
 openpyxl
 plotly
 reportlab
+xlsxwriter
