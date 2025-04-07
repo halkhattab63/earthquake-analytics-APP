@@ -1,237 +1,229 @@
-/* ألوان رئيسية */
+/* 🔥 ملف ستايل احترافي لـ Streamlit بلمسة عصرية وفخمة مع دعم الوضع الداكن */
+
 :root {
-    --primary-color: #5D6D7E; /* لون رئيسي حديث */
-    --secondary-color: #1C2833; /* لون الخلفية الداكنة */
-    --accent-color: #F39C12; /* لون مميز */
-    --light-color: #F4F6F7; /* لون فاتح للنصوص والخلفيات */
-    --dark-color: #17202A; /* لون داكن */
-    --success-color: #2ECC71; /* لون النجاح */
-    --warning-color: #E67E22; /* لون التحذير */
-    --danger-color: #E74C3C; /* لون الخطأ */
-    --font-family: 'Roboto', 'Arial', sans-serif;
-    --border-radius: 12px; /* حواف دائرية */
+    --primary-color: #4B6584;
+    --secondary-color: #2C3A47;
+    --accent-color: #F8C291;
+    --light-color: #fdfdfd;
+    --dark-color: #1B1B2F;
+    --success-color: #26de81;
+    --warning-color: #f39c12;
+    --danger-color: #eb3b5a;
+    --font-family: 'Cairo', 'Tajawal', sans-serif;
+    --border-radius: 14px;
 }
 
-/* تخصيص عام للصفحة */
 body {
     font-family: var(--font-family);
     background-color: var(--light-color);
-    color: #333;
+    color: #222;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
-    transition: background-color 0.3s ease;
-    animation: fadeIn 1s ease-out; /* تأثير دخول الصفحة */
+    line-height: 1.8;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    animation: fadeIn 1s ease-out;
 }
 
-/* تأثيرات حركية */
+/* الوضع الداكن */
+body.dark-mode {
+    background-color: var(--dark-color);
+    color: #f1f1f1;
+}
+
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6 {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+body.dark-mode .stTabs [role="tab"] {
+    background: #333;
+    color: #ddd;
+}
+
+body.dark-mode .stTabs [role="tab"][aria-selected="true"] {
+    background: var(--accent-color);
+    color: #111;
+}
+
+body.dark-mode .stButton>button {
+    background: var(--accent-color);
+    color: #111;
+}
+
+body.dark-mode .stButton>button:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* تحسينات للرأس الرئيسي */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    animation: fadeIn 1s ease-out;
-}
-
-/* تخصيص الشريط الجانبي */
+/* باقي التنسيقات تبقى كما هي */
 [data-testid="stSidebar"] {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--dark-color) 100%);
-    color: white;
-    padding: 2rem;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
-    transition: width 0.3s ease;
+    background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+    color: #fff;
+    padding: 2.5rem 1.5rem;
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
     animation: fadeIn 1s ease-out;
 }
 
-/* تخصيص أزرار الراديو في الشريط الجانبي */
 .st-eb {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
     border-radius: var(--border-radius);
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
     transition: background-color 0.3s ease;
     cursor: pointer;
 }
 
 .st-eb:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.18);
 }
 
 .st-eb label {
     color: white !important;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
-/* تخصيص الأزرار */
 .stButton>button {
-    background-color: var(--primary-color);
-    border: none;
+    background: var(--primary-color);
     color: white;
-    padding: 0.8rem 1.5rem;
-    font-weight: 600;
+    border: none;
     border-radius: var(--border-radius);
-    cursor: pointer;
+    padding: 0.9rem 1.7rem;
+    font-weight: 700;
+    font-size: 1.1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .stButton>button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    background-color: var(--accent-color);
+    background: var(--accent-color);
+    color: var(--dark-color);
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-/* تخصيص حقول الإدخال */
-.stTextInput>div>div>input, 
+.stTextInput>div>div>input,
 .stSelectbox>div>div>select,
 .stSlider>div>div>div>div {
     border-radius: var(--border-radius);
-    padding: 0.8rem;
-    border: 1px solid #ddd;
+    padding: 1rem;
+    border: 1px solid #ccc;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.stTextInput>div>div>input:focus, 
+.stTextInput>div>div>input:focus,
 .stSelectbox>div>div>select:focus,
 .stSlider>div>div>div>div:focus {
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(75, 101, 132, 0.2);
 }
 
-/* تخصيص الجداول */
 .stDataFrame {
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .stDataFrame:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
 }
 
-/* تخصيص الكروت */
 .stMetric {
-    background: linear-gradient(135deg, #ACC8E5 0%, #3498db 100%); /* تدرج لوني عصري */
-    border-radius: var(--border-radius); /* حواف دائرية */
-    padding: 1.8rem; /* زيادة المسافة داخل الكرت */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* ظلال أكثر قوة */
-    border-left: 6px solid var(--primary-color); /* زيادة سماكة الحد */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثيرات حركية */
-    color: #ffffff; /* نص أبيض لزيادة التباين */
-    font-weight: 600; /* جعل النص ثقيلًا */
+    background: linear-gradient(135deg, #5DA3FA, #0F3460);
+    color: #fff;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-left: 6px solid var(--primary-color);
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    overflow: hidden; /* إخفاء أي محتوى زائد */
+    animation: fadeIn 0.8s ease-out;
 }
 
 .stMetric:hover {
-    transform: translateY(-8px); /* رفع الكرت عند التمرير */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* زيادة الظلال عند التمرير */
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
 }
 
-.stMetric .metric-title {
-    font-size: 1.2rem; /* تغيير حجم الخط للعناوين */
-    font-weight: bold; /* جعل العنوان بارزًا */
-}
-
-.stMetric .metric-value {
-    font-size: 2rem; /* زيادة حجم قيمة المقياس */
-    color: #f8f9fa; /* لون فاتح للنص */
-}
-.stMetric .metric-icon {
-    font-size: 2.5rem; /* زيادة حجم الأيقونة */
-    color: var(--primary-color); /* استخدام اللون الرئيسي للأيقونة */
-}
-.stMetric .metric-icon:hover {
-    color: var(--accent-color); /* تغيير لون الأيقونة عند التمرير */
-} 
-.stMetric:hover {
-    transform: translateY(-5px);
-}
-
-/* تخصيص علامات التبويب */
 .stTabs [role="tablist"] {
-    background: transparent;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #ccc;
     margin-bottom: 1rem;
+    background: transparent;
 }
 
 .stTabs [role="tab"] {
+    background: #eee;
+    color: #444;
+    font-weight: bold;
+    padding: 0.7rem 1.5rem;
+    margin-right: 0.5rem;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
-    padding: 0.6rem 1.2rem;
-    margin-right: 0.8rem;
-    background: #f1f1f1;
-    color: #555;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
 }
 
 .stTabs [role="tab"][aria-selected="true"] {
     background: var(--primary-color);
-    color: white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* تخصيص الرسوم البيانية */
 .plotly-graph-div {
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-/* تخصيص رسائل التحذير والنجاح */
 .stAlert {
     border-radius: var(--border-radius);
-    padding: 1rem;
+    padding: 1.2rem;
+    font-weight: bold;
 }
 
 .stAlert.warning {
-    background-color: rgba(243, 156, 18, 0.1);
-    border-left: 4px solid var(--warning-color);
+    background: rgba(243, 156, 18, 0.15);
+    border-left: 6px solid var(--warning-color);
 }
 
 .stAlert.success {
-    background-color: rgba(46, 204, 113, 0.1);
-    border-left: 4px solid var(--success-color);
+    background: rgba(38, 222, 129, 0.15);
+    border-left: 6px solid var(--success-color);
 }
 
 .stAlert.error {
-    background-color: rgba(231, 76, 60, 0.1);
-    border-left: 4px solid var(--danger-color);
+    background: rgba(235, 59, 90, 0.15);
+    border-left: 6px solid var(--danger-color);
 }
 
-/* تخصيص الخرائط */
 .map-container {
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* تخصيص للأجهزة المحمولة */
 @media (max-width: 768px) {
     [data-testid="stSidebar"] {
         width: 100% !important;
+        padding: 1rem !important;
     }
-    
     .stMetric {
-        margin-bottom: 1.2rem;
+        margin-bottom: 1.5rem;
+        flex-direction: column;
+        gap: 1rem;
     }
-    
     .stButton>button {
-        padding: 0.6rem 1rem;
+        width: 100%;
     }
 }
