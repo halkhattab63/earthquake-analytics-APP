@@ -39,7 +39,7 @@ project/
     ├── inference.py
     ├── evaluation.py
     └── preprocessing.py
-```
+
 project yol/
 ├── data/
 │   ├── raw/
@@ -60,7 +60,9 @@ project yol/
 │   ├── risk_classifier.py
 │   ├── generate_maps.py
 │   └── [dashboard.py](http://dashboard.py/)
-└── [main.py](http://main.py/)
+└── [main.py](http://main.py/) 
+```
+
 ---
 
 ## 🧠 Kullanılan Algoritmalar ve Yöntemler
