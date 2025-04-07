@@ -174,6 +174,106 @@ def display_tab(selected_tab, filtered_df):
         else:
             st.warning("⚠️ Zaman sırasını göstermek için veri yok")
 
+
+
+
+    elif selected_tab == "🧠 Yapay Zeka Tahminleri":
+        st.title("🧠 AI ile Deprem Tahmini ve Analizi")
+        try:
+            base_path = "earthquake_risk_predictor/data/"
+            pred_path = os.path.join(base_path, "predictions.csv")
+
+            if os.path.exists(pred_path):
+                df_pred = pd.read_csv(pred_path)
+
+                st.subheader("📋 Tahmin Verileri ")
+                st.dataframe(df_pred.head(50))
+
+                st.subheader("📉 Tahmin Hataları")
+                err_img = os.path.join(base_path, "regression_errors.png")
+                if os.path.exists(err_img):
+                    st.image(err_img, use_container_width=True)
+                else:
+                    st.warning("📉 regression_errors.png bulunamadı.")
+
+                st.subheader("📊 Performans Ölçümleri")
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    reg_metrics_path = os.path.join(base_path, "regression_metrics.csv")
+                    if os.path.exists(reg_metrics_path):
+                        st.write("📈 Regression Metrics")
+                        st.dataframe(pd.read_csv(reg_metrics_path))
+
+                with col2:
+                    xgb_metrics_path = os.path.join(base_path, "xgboost_metrics.csv")
+                    if os.path.exists(xgb_metrics_path):
+                        st.write("📈 XGBoost Metrics")
+                        st.dataframe(pd.read_csv(xgb_metrics_path))
+
+                st.subheader("🧩 Ek Görseller")
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    roc_path = os.path.join(base_path, "roc_curve.png")
+                    if os.path.exists(roc_path):
+                        st.image(roc_path, caption="ROC Curve", use_container_width=True)
+
+                with col2:
+                    cm_path = os.path.join(base_path, "confusion_matrix.png")
+                    if os.path.exists(cm_path):
+                        st.image(cm_path, caption="Confusion Matrix", use_container_width=True)
+
+                st.subheader("📊 XGBoost Tahmin Görselleri")
+                col3, col4 = st.columns(2)
+                xgb_mag_path = os.path.join(base_path, "xgboost_results_magnitude.png")
+                xgb_dep_path = os.path.join(base_path, "xgboost_results_depth_km.png")
+                with col3:
+                    if os.path.exists(xgb_mag_path):
+                        st.image(xgb_mag_path, caption="XGBoost Prediction: Magnitude", use_container_width=True)
+                with col4:
+                    if os.path.exists(xgb_dep_path):
+                        st.image(xgb_dep_path, caption="XGBoost Prediction: Depth", use_container_width=True)
+
+            #     st.subheader("🗺️ Coğrafi Dağılım")
+            #     geo_img = os.path.join(base_path, "geographic_distribution.png")
+            #     if os.path.exists(geo_img):
+            #         st.image(geo_img, caption="Earthquake Geographic Distribution", use_container_width=True)
+            # else:
+            #     st.warning("📄 predictions.csv bulunamadı.")
+        except Exception as e:
+            st.error(f"AI Paneli yüklenemedi: {str(e)}")
+
+# =================================================
+    elif selected_tab == "🗺️ Sığınak ve Risk Haritası":
+        st.title("🗺️ Harita Görselleştirmeleri")
+
+        st.subheader("📍 Harita Sonuçları")
+
+        risk_map_path = "project yol/outputs/maps/dashboard_map.html"
+        # evacuation_map_path = "project yol/outputs/maps/evacuation_dashboard.html"
+        multi_path_map_path = "project yol/outputs/maps/multi_paths_map.html"
+
+        if os.path.exists(risk_map_path):
+            st.markdown("#### 🌋 Risk Yoğunluk Haritası")
+            st.components.v1.html(open(risk_map_path, "r", encoding="utf-8").read(), height=600)
+
+        # if os.path.exists(evacuation_map_path):
+        #     st.markdown("#### 🚶 Tahliye Paneli")
+        #     st.components.v1.html(open(evacuation_map_path, "r", encoding="utf-8").read(), height=600)
+
+        if os.path.exists(multi_path_map_path):
+            st.markdown("#### 🧭 Alternatif Tahliye Güzergahları")
+            st.components.v1.html(open(multi_path_map_path, "r", encoding="utf-8").read(), height=600)
+
+        # st.info("💡 Yukarıdaki haritalar, analiz sonuçlarını etkileşimli olarak görüntülemenizi sağlar.")
+
+
+
+# ==================================================
+
+
+
     # Veri dışa aktarımı sekmesi
     # Veri dışa aktarımı sekmesi
     elif selected_tab == "📤 Veri Dışa Aktarımı":
@@ -257,127 +357,129 @@ def display_tab(selected_tab, filtered_df):
                         file_name="predictions.csv",
                         mime="text/csv"
                     )
+        st.divider()
+        st.subheader("📊 Gelişmiş Veri Sonuçları ve Harici Dosyalar")
 
-    elif selected_tab == "🧠 Yapay Zeka Tahminleri":
-        st.title("🧠 AI ile Deprem Tahmini ve Analizi")
-        try:
-            base_path = "earthquake_risk_predictor/data/"
-            pred_path = os.path.join(base_path, "predictions.csv")
+        col1, col2, col3 = st.columns(3)
 
-            if os.path.exists(pred_path):
-                df_pred = pd.read_csv(pred_path)
+        with col1:
+            path = "project yol/outputs/tables/shelter_clusters.csv"
+            if os.path.exists(path):
+                st.download_button("🏕️ Sığınak Kümelemesi", open(path, "rb"), file_name="shelter_clusters.csv")
 
-                st.subheader("📋 Tahmin Verileri ")
-                st.dataframe(df_pred.head(50))
+        with col2:
+            path = "project yol/outputs/tables/risk_levels.csv"
+            if os.path.exists(path):
+                st.download_button("⚠️ Risk Seviyeleri", open(path, "rb"), file_name="risk_levels.csv")
 
-                st.subheader("📉 Tahmin Hataları")
-                err_img = os.path.join(base_path, "regression_errors.png")
-                if os.path.exists(err_img):
-                    st.image(err_img, use_container_width=True)
-                else:
-                    st.warning("📉 regression_errors.png bulunamadı.")
+        with col3:
+            path = "project yol/outputs/tables/shelter_risk_joined.geojson"
+            if os.path.exists(path):
+                st.download_button("🗺️ Riskli Sığınaklar", open(path, "rb"), file_name="shelter_risk_joined.geojson")
 
-                st.subheader("📊 Performans Ölçümleri")
-                col1, col2 = st.columns(2)
+        col4, col5 = st.columns(2)
 
-                with col1:
-                    reg_metrics_path = os.path.join(base_path, "regression_metrics.csv")
-                    if os.path.exists(reg_metrics_path):
-                        st.write("📈 Regression Metrics")
-                        st.dataframe(pd.read_csv(reg_metrics_path))
+        with col4:
+            path = "project yol/outputs/shapefiles/evacuation_path.geojson"
+            if os.path.exists(path):
+                st.download_button("🚶 Ana Tahliye Yolu", open(path, "rb"), file_name="evacuation_path.geojson")
 
-                with col2:
-                    xgb_metrics_path = os.path.join(base_path, "xgboost_metrics.csv")
-                    if os.path.exists(xgb_metrics_path):
-                        st.write("📈 XGBoost Metrics")
-                        st.dataframe(pd.read_csv(xgb_metrics_path))
+        with col5:
+            path = "project yol/outputs/shapefiles/evacuation_path_1.geojson"
+            if os.path.exists(path):
+                st.download_button("🚸 Alternatif Yol #1", open(path, "rb"), file_name="evacuation_path_1.geojson")
 
-                st.subheader("🧩 Ek Görseller")
-                col1, col2 = st.columns(2)
+        col6, col7 = st.columns(2)
 
-                with col1:
-                    roc_path = os.path.join(base_path, "roc_curve.png")
-                    if os.path.exists(roc_path):
-                        st.image(roc_path, caption="ROC Curve", use_container_width=True)
+        with col6:
+            pdf_path = "project yol/outputs/reports/project_summary.pdf"
+            if os.path.exists(pdf_path):
+                st.download_button("📑 Proje Özeti PDF", open(pdf_path, "rb"), file_name="project_summary.pdf")
 
-                with col2:
-                    cm_path = os.path.join(base_path, "confusion_matrix.png")
-                    if os.path.exists(cm_path):
-                        st.image(cm_path, caption="Confusion Matrix", use_container_width=True)
-
-                st.subheader("📊 XGBoost Tahmin Görselleri")
-                col3, col4 = st.columns(2)
-                xgb_mag_path = os.path.join(base_path, "xgboost_results_magnitude.png")
-                xgb_dep_path = os.path.join(base_path, "xgboost_results_depth_km.png")
-                with col3:
-                    if os.path.exists(xgb_mag_path):
-                        st.image(xgb_mag_path, caption="XGBoost Prediction: Magnitude", use_container_width=True)
-                with col4:
-                    if os.path.exists(xgb_dep_path):
-                        st.image(xgb_dep_path, caption="XGBoost Prediction: Depth", use_container_width=True)
-
-            #     st.subheader("🗺️ Coğrafi Dağılım")
-            #     geo_img = os.path.join(base_path, "geographic_distribution.png")
-            #     if os.path.exists(geo_img):
-            #         st.image(geo_img, caption="Earthquake Geographic Distribution", use_container_width=True)
-            # else:
-            #     st.warning("📄 predictions.csv bulunamadı.")
-        except Exception as e:
-            st.error(f"AI Paneli yüklenemedi: {str(e)}")
+        with col7:
+            img_path = "project yol/outputs/maps/risk_map.png"
+            if os.path.exists(img_path):
+                st.image(img_path, caption="📷 Risk Haritası (PNG)", use_column_width=True)
+                st.download_button("📷 PNG İndir", open(img_path, "rb"), file_name="risk_map.png")
 
 
 
 
 
 
-# ==================================================
-
-
-
-
-    # Proje Hakkında sekmesi
     elif selected_tab == "ℹ️ Proje Hakkında":
-        st.title("🌍 Türkiye Deprem İzleme Sistemi")
+        st.title("🌍 Akıllı Afet Yönetim Sistemi")
+
         st.markdown("""
-        <div style="background: linear-gradient(to right, #f8f9fa, #e9ecef);
-                    padding: 25px;
-                    border-radius: 15px;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">
-                Entegre Deprem Analiz Sistemi
-            </h3>
-            <p style="font-size: 1.1em;">Bu proje, Türkiye'deki deprem aktivitesini izlemek ve analiz etmek için en son veri bilimi ve yapay zeka teknolojilerini kullanarak entegre bir platform sağlamayı amaçlamaktadır.</p>
+        <div style="background-color:#f8f9fa;padding:25px;border-radius:15px;border-left:5px solid #3498db;">
+            <h2 style="color:#2c3e50;">📘 Proje Başlığı:</h2>
+            <h3 style="color:#2980b9;">Türkiye'de Depremler İçin Akıllı Afet Yönetimi ve Risk Analizi Platformu</h3>
+            <p style="font-size:1.1em;">Bu sistem, Türkiye'deki deprem verilerini gerçek zamanlı analiz ederek, riskli bölgeleri tespit etmek, güvenli tahliye yolları önermek ve karar vericilere görselleştirilmiş destek sunmak amacıyla geliştirilmiştir.</p>
         </div>
         """, unsafe_allow_html=True)
 
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown("""
-            <div style="background-color: #2c3e50; padding: 20px; border-radius: 10px; color: white;">
-                <h4 style="color: #f1c40f;">📌 Ana Özellikler</h4>
-                <ul style="font-size: 1em;">
-                    <li>Dinamik Etkileşimli Haritalar</li>
-                    <li>İleri Düzey İstatistiksel Analizler</li>
-                    <li>Depremler için Zaman Sırası Görselleştirmesi</li>
-                    <li>Otomatik Erken Uyarı Sistemi</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
+        st.markdown("### 🎯 Proje Hedefi")
+        st.info("""
+        Gerçek zamanlı deprem verileri ile:
+        - Yüksek riskli bölgeleri KDE ile tespit etmek
+        - Güvenli tahliye yollarını Dijkstra ile hesaplamak
+        - Sığınakları K-Means ile gruplayarak erişilebilirliği artırmak
+        - Risk seviyelerini AI ile sınıflandırmak
+        - Sonuçları interaktif haritalar ve panellerle görselleştirmek
+        """)
 
-        with col2:
-            st.markdown("""
-            <div style="background-color: #e74c3c; padding: 20px; border-radius: 10px; color: white;">
-                <h4 style="color: #f1c40f;">🛠️ Kullanılan Teknolojiler</h4>
-                <ul style="font-size: 1em;">
-                    <li>Python 3 + Streamlit</li>
-                    <li>Pandas + NumPy için analiz</li>
-                    <li>Folium + Plotly için görselleştirme</li>
-                </ul>
-            </div>
-            """, unsafe_allow_html=True)
+        st.markdown("### 🧠 Kullanılan Algoritmalar")
+        st.success("""
+        - KDE (Yoğunluk Haritası) → Riskli bölgelerin mekânsal analizi
+        - Dijkstra Algoritması → En kısa ve güvenli yol belirleme
+        - K-Means Clustering → Sığınak gruplaması
+        - Random Forest / SVM → Risk sınıflandırması (AI tabanlı)
+        """)
+
+        st.markdown("### 🧩 Sistem Modülleri")
+        st.write("""
+        - 📡 **Veri Toplama**: USGS ve OSM üzerinden anlık deprem ve yol verisi
+        - 🧽 **Veri Temizleme**: Koordinat düzeltme, eksik veri kontrolü
+        - 🔍 **Risk Analizi**: KDE ile yoğunluk, AI ile sınıflama
+        - 🛣️ **Tahliye Planlama**: Yol grafı üzerinden Dijkstra
+        - 🏕️ **Sığınak Analizi**: Clustering ve risk bölgesi çakışması
+        - 🗺️ **Haritalar**: Folium ile interaktif risk/rota/sığınak haritaları
+        - 📊 **Dashboard**: Streamlit + Plotly ile görsel özet
+        - 📄 **PDF/CSV Raporlar**: Sonuçların dışa aktarımı
+        """)
+
+        st.markdown("### 📦 Çıktılar")
+        st.success("""
+        - Risk Haritası (KDE tabanlı)
+        - Alternatif Tahliye Güzergahları
+        - Riskli Sığınaklar ve Bölgeler
+        - Etkileşimli Dashboard
+        - PDF + HTML Raporlar
+        - Makine Öğrenimi tahmin dosyaları
+        """)
+
+        st.markdown("### ⚙️ Kullanılan Teknolojiler")
+        st.columns(3)
+        st.markdown("""
+        - 🐍 Python 3.10
+        - 📊 Pandas, NumPy, Scikit-learn
+        - 📍 GeoPandas, OSMnx, Shapely
+        - 🌍 Folium, Plotly
+        - 🖥️ Streamlit
+        - 📑 Pandoc, XlsxWriter
+        """)
+
+        st.markdown("### 👤 Geliştirici Bilgileri")
+        st.markdown("""
+        - **Ad Soyad:** Hayan Alkhattab  
+        - **Fakülte/Bölüm:** Mühendislik Fakültesi – YAZILIM Mühendisliği  
+        - **Danışman:** Assist. Prof. Dr. ÖZGÜR KARADUMAN 
+        - **Yıl:** 2024-2025  
+        """)
 
         st.markdown("""
-        <div style="text-align:center;color:#7f8c8d;font-size:0.9em;">
-            Bu proje araştırma ve bilimsel amaçlar için geliştirilmiştir - © 2023 Tüm hakları saklıdır
+        <div style="text-align:center;color:#7f8c8d;font-size:0.9em;padding-top:20px;">
+        Bu platform bilimsel araştırma ve akademik kullanım için geliştirilmiştir.  
+        Telif Hakkı © 2024 – Hayan Alkhattab
         </div>
         """, unsafe_allow_html=True)
