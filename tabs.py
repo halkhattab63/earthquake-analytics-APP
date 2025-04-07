@@ -1,5 +1,6 @@
 # tabs.py
 from io import BytesIO
+import os
 import folium
 import pandas as pd
 import streamlit as st
@@ -174,14 +175,17 @@ def display_tab(selected_tab, filtered_df):
             st.warning("⚠️ Zaman sırasını göstermek için veri yok")
 
     # Veri dışa aktarımı sekmesi
+    # Veri dışa aktarımı sekmesi
     elif selected_tab == "📤 Veri Dışa Aktarımı":
         st.title("📤 Veri Dışa Aktarımı")
+
         if not filtered_df.empty:
-            st.subheader("Dışa Aktarım Seçenekleri")
+            st.subheader("📁 Filtrelenmiş Veriyi Dışa Aktar")
+
             col1, col2, col3 = st.columns(3)
 
             with col1:
-                st.markdown("**📄 CSV Dosyası Olarak Dışa Aktar**")
+                st.markdown("**📄 CSV Olarak İndir**")
                 csv = filtered_df.to_csv(index=False).encode("utf-8-sig")
                 st.download_button(
                     label="CSV İndir",
@@ -191,7 +195,8 @@ def display_tab(selected_tab, filtered_df):
                 )
 
             with col2:
-                st.markdown("**📊 Excel Dosyası Olarak Dışa Aktar**")
+                st.markdown("**📊 Excel Olarak İndir**")
+                from io import BytesIO
                 excel_buffer = BytesIO()
                 with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
                     filtered_df.to_excel(writer, index=False, sheet_name="Depremler")
@@ -203,7 +208,7 @@ def display_tab(selected_tab, filtered_df):
                 )
 
             with col3:
-                st.markdown("**📑 PDF Dosyası Olarak Dışa Aktar**")
+                st.markdown("**📑 PDF Olarak İndir**")
                 pdf_buffer = generate_pdf(filtered_df)
                 st.download_button(
                     label="PDF İndir",
@@ -214,12 +219,111 @@ def display_tab(selected_tab, filtered_df):
 
             st.subheader("Veri Önizlemesi")
             st.dataframe(filtered_df.head(50))
-
         else:
             st.warning("⚠️ Dışa aktarılacak veri bulunmamaktadır.")
 
+        # 🔽 Ek Raporlar: Model çıktıları
+        st.divider()
+        st.subheader("🧠 Yapay Zeka Raporları ve Tahminler")
 
+        col_pdf, col_html, col_ai = st.columns(3)
 
+        with col_pdf:
+            if os.path.exists("data/earthquake_report.pdf"):
+                with open("data/earthquake_report.pdf", "rb") as f:
+                    st.download_button(
+                        label="📄 Model PDF Raporu",
+                        data=f,
+                        file_name="earthquake_report.pdf",
+                        mime="application/pdf"
+                    )
+
+        with col_html:
+            if os.path.exists("data/report.html"):
+                with open("data/report.html", "rb") as f:
+                    st.download_button(
+                        label="🌐 Model HTML Raporu",
+                        data=f,
+                        file_name="earthquake_report.html",
+                        mime="text/html"
+                    )
+
+        with col_ai:
+            if os.path.exists("data/predictions.csv"):
+                with open("data/predictions.csv", "rb") as f:
+                    st.download_button(
+                        label="📊 Tahminler CSV",
+                        data=f,
+                        file_name="predictions.csv",
+                        mime="text/csv"
+                    )
+
+    elif selected_tab == "🧠 Yapay Zeka Tahminleri":
+        st.title("🧠 AI ile Deprem Tahmini ve Analizi")
+        try:
+            base_path = "earthquake_risk_predictor/data/"
+            pred_path = os.path.join(base_path, "predictions.csv")
+
+            if os.path.exists(pred_path):
+                df_pred = pd.read_csv(pred_path)
+
+                st.subheader("📋 Tahmin Verileri ")
+                st.dataframe(df_pred.head(50))
+
+                st.subheader("📉 Tahmin Hataları")
+                err_img = os.path.join(base_path, "regression_errors.png")
+                if os.path.exists(err_img):
+                    st.image(err_img, use_container_width=True)
+                else:
+                    st.warning("📉 regression_errors.png bulunamadı.")
+
+                st.subheader("📊 Performans Ölçümleri")
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    reg_metrics_path = os.path.join(base_path, "regression_metrics.csv")
+                    if os.path.exists(reg_metrics_path):
+                        st.write("📈 Regression Metrics")
+                        st.dataframe(pd.read_csv(reg_metrics_path))
+
+                with col2:
+                    xgb_metrics_path = os.path.join(base_path, "xgboost_metrics.csv")
+                    if os.path.exists(xgb_metrics_path):
+                        st.write("📈 XGBoost Metrics")
+                        st.dataframe(pd.read_csv(xgb_metrics_path))
+
+                st.subheader("🧩 Ek Görseller")
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    roc_path = os.path.join(base_path, "roc_curve.png")
+                    if os.path.exists(roc_path):
+                        st.image(roc_path, caption="ROC Curve", use_container_width=True)
+
+                with col2:
+                    cm_path = os.path.join(base_path, "confusion_matrix.png")
+                    if os.path.exists(cm_path):
+                        st.image(cm_path, caption="Confusion Matrix", use_container_width=True)
+
+                st.subheader("📊 XGBoost Tahmin Görselleri")
+                col3, col4 = st.columns(2)
+                xgb_mag_path = os.path.join(base_path, "xgboost_results_magnitude.png")
+                xgb_dep_path = os.path.join(base_path, "xgboost_results_depth_km.png")
+                with col3:
+                    if os.path.exists(xgb_mag_path):
+                        st.image(xgb_mag_path, caption="XGBoost Prediction: Magnitude", use_container_width=True)
+                with col4:
+                    if os.path.exists(xgb_dep_path):
+                        st.image(xgb_dep_path, caption="XGBoost Prediction: Depth", use_container_width=True)
+
+            #     st.subheader("🗺️ Coğrafi Dağılım")
+            #     geo_img = os.path.join(base_path, "geographic_distribution.png")
+            #     if os.path.exists(geo_img):
+            #         st.image(geo_img, caption="Earthquake Geographic Distribution", use_container_width=True)
+            # else:
+            #     st.warning("📄 predictions.csv bulunamadı.")
+        except Exception as e:
+            st.error(f"AI Paneli yüklenemedi: {str(e)}")
 
 
 

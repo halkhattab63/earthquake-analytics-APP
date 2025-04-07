@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "shelter_clusters_centers",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { }, "geometry": { "type": "Point", "coordinates": [ 38.927777101872628, 38.497932763165053 ] } },
+{ "type": "Feature", "properties": { }, "geometry": { "type": "Point", "coordinates": [ 39.959173490721078, 38.723543956212509 ] } },
+{ "type": "Feature", "properties": { }, "geometry": { "type": "Point", "coordinates": [ 39.194399129099864, 38.66351296838662 ] } },
+{ "type": "Feature", "properties": { }, "geometry": { "type": "Point", "coordinates": [ 38.730595947856692, 38.79862176082208 ] } },
+{ "type": "Feature", "properties": { }, "geometry": { "type": "Point", "coordinates": [ 39.358428406156008, 38.546753205305549 ] } }
+]
+}

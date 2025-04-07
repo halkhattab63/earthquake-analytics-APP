@@ -17,6 +17,7 @@ def show_sidebar(df):
             "📈 Zaman İstatistikleri",
             "🎥 Zaman Sırası",
             "📤 Veri Dışa Aktarımı",
+            "🧠 Yapay Zeka Tahminleri", 
             "ℹ️ Proje Hakkında"
         ]
     )
