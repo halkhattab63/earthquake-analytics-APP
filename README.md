@@ -120,9 +120,9 @@ streamlit run main.py
 ## 👤 Geliştirici Bilgileri
 
 - **Ad Soyad:** Hayan Alkhattab  
-- **Bölüm:** Bilgisayar Mühendisliği  
+- **Bölüm:**   
 - **Dönem:** 2024-2025  
-- **Danışman:** Prof. Dr. [Danışman Adı]  
+- **Danışman:** 
 
 ---
 
