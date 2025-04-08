@@ -1,3 +1,5 @@
+ taslak
+
 # 🌍 Akıllı Deprem Yönetim ve Risk Analiz Platformu
 
 Bu proje, Türkiye'deki geçmiş ve güncel deprem verilerini kullanarak **afet riski analizi**, **güvenli tahliye planlaması**, **sığınma alanı değerlendirmesi** ve **yapay zeka destekli sınıflandırma** gerçekleştiren entegre bir platformdur.
