@@ -121,7 +121,7 @@ def export_processed_data():
     global _processed_df
     if _processed_df is not None:
         os.makedirs("data", exist_ok=True)
-        _processed_df.to_csv("data/processed_earthquakes.csv", index=False)
+        _processed_df.to_csv("earthquake_risk_predictor/data/processed_earthquakes.csv", index=False)
         print("✅ Processed data saved to 'data/processed_earthquakes.csv'")
 
 
@@ -137,5 +137,5 @@ def plot_severity_distribution():
         plt.grid(True, axis='y')
         plt.tight_layout()
         os.makedirs("data", exist_ok=True)
-        plt.savefig("data/severity_distribution.png")
+        plt.savefig("earthquake_risk_predictor/data/severity_distribution.png")
         print("📊 Saved severity class distribution to 'data/severity_distribution.png'")

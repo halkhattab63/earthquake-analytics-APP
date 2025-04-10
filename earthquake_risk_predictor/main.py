@@ -30,8 +30,9 @@ def main():
 
     # 1. Load and preprocess data
     X_train, X_test, y_train_class, y_test_class, y_train_reg, y_test_reg = load_data(
-        "cleaned_earthquake_data_turkey.csv", use_smote=True
-    )
+        "earthquake_risk_predictor/data/dataset/usgs_earthquakes_turkey2020.csv", use_smote=True)
+
+    
 
     print("🔍 Distribution after SMOTE:")
     print(y_train_class.value_counts(), "\n")
