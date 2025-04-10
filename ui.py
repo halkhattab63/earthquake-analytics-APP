@@ -1,7 +1,7 @@
 # ui.py
 import streamlit as st
 import pandas as pd
-from APP.filters import apply_filters
+from filters import apply_filters
 
 def show_sidebar(df):
     """Yan menüyü göster ve filtrelerle etkileşimde bulun"""

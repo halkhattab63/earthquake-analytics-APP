@@ -3,7 +3,7 @@ import folium
 from folium.plugins import MarkerCluster, HeatMap, Fullscreen, TimestampedGeoJson
 from branca.colormap import linear
 import streamlit as st  # Make sure streamlit is imported for error handling
-from APP.color_utils import get_color_by_magnitude
+from color_utils import get_color_by_magnitude
 def create_interactive_map(data):
     """Depremler için etkileşimli harita oluştur"""
     if data.empty:

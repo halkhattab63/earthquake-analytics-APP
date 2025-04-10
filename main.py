@@ -1,13 +1,13 @@
 # main.py
 import streamlit as st
 import pandas as pd
-from APP.app_config import configure_app
-from APP.data_loader import load_data
-from APP.pdf_report import generate_pdf
-from APP.map_functions import create_interactive_map, create_heatmap
-from APP.ui import show_sidebar
-from APP.filter_s import apply_filters
-from APP.tabs import display_tab
+from app_config import configure_app
+from data_loader import load_data
+from pdf_report import generate_pdf
+from map_functions import create_interactive_map, create_heatmap
+from ui import show_sidebar
+from filter_s import apply_filters
+from tabs import display_tab
 # CSS ile görünümü özelleştirme
 def load_css():
     # Dosyayı UTF-8 kodlamasıyla açtığınızdan emin olun

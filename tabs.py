@@ -5,11 +5,11 @@ import folium
 import pandas as pd
 import streamlit as st
 from folium.plugins import MarkerCluster, HeatMap, Fullscreen
-from APP.map_functions import create_interactive_map, create_heatmap
+from map_functions import create_interactive_map, create_heatmap
 import plotly.express as px
 from streamlit_folium import st_folium
 import plotly.graph_objects as go
-from APP.pdf_report import generate_pdf
+from pdf_report import generate_pdf
 def display_tab(selected_tab, filtered_df):
     """Seçilen sekmeleri göster"""
     
