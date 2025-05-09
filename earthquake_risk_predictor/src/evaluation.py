@@ -5,7 +5,7 @@ from sklearn.metrics import mean_absolute_error, r2_score
 from fpdf import FPDF
 import os
 
-def generate_pdf_report(data_folder="data", output_path="data/earthquake_report.pdf"):
+def generate_pdf_report(data_folder, output_path="earthquake_risk_predictor/data/earthquake_report.pdf"):
     os.makedirs(data_folder, exist_ok=True)
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
@@ -56,7 +56,7 @@ def generate_pdf_report(data_folder="data", output_path="data/earthquake_report.
     print(f"✅ PDF report generated: {output_path}")
 
 
-def generate_html_report(data_folder="data", output_path="data/report.html"):
+def generate_html_report(data_folder, output_path="earthquake_risk_predictor/data/report.html"):
     os.makedirs(data_folder, exist_ok=True)
     preds_path = os.path.join(data_folder, "predictions.csv")
     img_files = [
@@ -112,10 +112,10 @@ def generate_html_report(data_folder="data", output_path="data/report.html"):
     print(f"🌐 HTML report created: {output_path}")
 
 
-def plot_regression_differences(y_test_reg, y_pred_reg=None, output_path="data/regression_errors.png"):
+def plot_regression_differences(y_test_reg, y_pred_reg=None, output_path="earthquake_risk_predictor/data/regression_errors.png"):
     if y_pred_reg is None or isinstance(y_pred_reg, str):
-        if os.path.exists("data/predictions.csv"):
-            df = pd.read_csv("data/predictions.csv")
+        if os.path.exists("earthquake_risk_predictor/data/predictions.csv"):
+            df = pd.read_csv("earthquake_risk_predictor/data/predictions.csv")
             y_pred_reg = df[['pred_magnitude', 'pred_depth_km']].values
             y_test_reg = df[['true_magnitude', 'true_depth_km']].values
         else:

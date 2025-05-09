@@ -16,7 +16,6 @@ def show_sidebar(df):
             "📊 Analiz Paneli",
             "📈 Zaman İstatistikleri",
             "🎥 Zaman Sırası",
-            
             "🧠 Yapay Zeka Tahminleri", 
             "🗺️ Sığınak ve Risk Haritası",
             "📤 Veri Dışa Aktarımı",
