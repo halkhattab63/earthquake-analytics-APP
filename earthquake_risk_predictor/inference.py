@@ -87,7 +87,7 @@
 import torch
 import pandas as pd
 import joblib
-from src.model import EarthquakeModel  # يمكنك تغييره لـ SimpleNN أو أي موديل آخر
+from earthquake_risk_predictor.src.PyTorch_predictor.model import EarthquakeModel  # يمكنك تغييره لـ SimpleNN أو أي موديل آخر
 from sklearn.preprocessing import StandardScaler
 
 
